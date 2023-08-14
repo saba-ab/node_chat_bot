@@ -81,12 +81,25 @@ bot.command(["echo", "Echo"], (ctx) => {
     );
   }
 });
+let log = {};
+
 function logger(ctx) {
   console.log(
-    `[${new Date().toLocaleString()}] ${ctx.from.username} ${JSON.stringify({
-      ...ctx,
-    })}`
-  ); // eslint-disable-line no
+    `Time - [${new Date().toLocaleString()}]
+  name  -  ${ctx.from.first_name} ${ctx.from.last_name}
+  username  - ${ctx.from.username}
+  log captured `
+  );
+  return (log = {
+    time: `${new Date().toLocaleString()}`,
+    name: `${ctx.from.first_name}`,
+    username: `${ctx.from.username}`,
+    is_logged: true,
+  });
 }
+bot.command("log", (ctx) => {
+  console.log(log);
+  bot.telegram.sendMessage(ctx.chat.id, "logged successfully");
+});
 
 bot.launch();
