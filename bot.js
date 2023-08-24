@@ -98,8 +98,10 @@ function logger(ctx) {
   });
 }
 bot.command("log", (ctx) => {
-  console.log(log);
-  bot.telegram.sendMessage(ctx.chat.id, "logged successfully");
+  const values = Object.values(log);
+  values.forEach((value) => {
+    bot.telegram.sendMessage(ctx.chat.id, `${value}`);
+  });
 });
 
 bot.launch();
